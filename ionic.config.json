@@ -1,0 +1,7 @@
+{
+  "name": "scopriRE",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
