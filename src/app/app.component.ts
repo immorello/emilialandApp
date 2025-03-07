@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { FrontendService } from './frontend.service';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +8,35 @@ import { Component, ViewChild } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  
-  @ViewChild('homeContent') homeContent:any;
-  
-  
-  constructor() {}
 
-  onPageScroll(event:any){
-    console.log(event);
+  private _menuVisible: boolean;
+
+  constructor(private frontend: FrontendService) {
+    this._menuVisible = true;
   }
-  
 
-  
+  ngAfterViewInit() {
+    this.frontend.getMessage.subscribe(
+      (event:CustomEvent) => { 
+        let details = event.detail;
+        let scrollY = details.deltaY;
+        if(scrollY > 50){
+          this.menuVisible = false;
+        }else{
+          this.menuVisible = true;
+        }
+      }
+    );
+  }
+
+  public get menuVisible(){
+    return this._menuVisible;
+  }
+
+  public set menuVisible(value:boolean){
+    this._menuVisible = value;
+  }
+
+
+
 }

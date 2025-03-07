@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { FrontendService } from '../frontend.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,11 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 })
 export class HomePage {
 
-  @Output() scrolled = new EventEmitter<void>();
-
-  @HostListener('ionScroll',['$event'])
-  onScroll(event: Event){
-    this.scrolled.emit();
-  }
-  constructor() {}
   
+  constructor(private frontend:FrontendService) {}
+  
+  onScroll(event: CustomEvent){
+    this.frontend.setMessage(event);
+    return
+  }
 }
