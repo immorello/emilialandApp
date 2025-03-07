@@ -1,20 +1,34 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content #homeContent [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <ion-grid class="grid-class ion-no-padding">
+    <ion-row class="ion-padding-vertical">
+      <ion-col>
+        <ion-text>
+          <h1 class="ion-padding">Nuovi tortelli</h1>
+          <h3 class="ion-padding-horizontal ion-no-margin">RICETTE REGGIANE</h3>
+          <h5 class="ion-padding"><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet arcu ac iaculis condimentum. Proin felis nibh, scelerisque ac ipsum a, porttitor auctor est. Cras vehicula elit nunc</i></h5>
+        </ion-text>
+          
+          <ion-img  src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQkUlcO8t_tROVX7I1kj4Mq6mQeavjtv2f1QD9feL7HRet_MptaBbiJPNUMlBCc_Fd7wgcVRHx4s6JfKnY2R9-q0UsUCD_rR8F6XfuOVHA"></ion-img>
+        
+      </ion-col>
+    </ion-row >
+    <ion-row class="ion-padding-vertical">
+      <ion-col>
+        <ion-text>
+          <h1 class="ion-padding">Marco Emilio Lepido</h1>
+          <h3 class="ion-padding-horizontal ion-no-margin">REGGIANI ILLUSTRI</h3>
+          <h5 class="ion-padding"><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet arcu ac iaculis condimentum. Proin felis nibh, scelerisque ac ipsum a, porttitor auctor est. Cras vehicula elit nunc</i></h5>
+        </ion-text>
+          
+          <ion-img  src="https://nimelarzan.it/wp-content/uploads/2019/08/1-Marco-Emilio-Lepido.png"></ion-img>
+        
+      </ion-col>
+    </ion-row >
+
+  </ion-grid>
+  
+
+
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,16 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
+  
+  @ViewChild('homeContent') homeContent:any;
+  
+  
   constructor() {}
+
+  onPageScroll(event:any){
+    console.log(event);
+  }
+  
+
+  
 }

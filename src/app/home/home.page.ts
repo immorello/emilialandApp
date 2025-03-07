@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  @Output() scrolled = new EventEmitter<void>();
 
+  @HostListener('ionScroll',['$event'])
+  onScroll(event: Event){
+    this.scrolled.emit();
+  }
+  constructor() {}
+  
 }

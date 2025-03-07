@@ -1,3 +1,81 @@
-<ion-app>
+<ion-app >
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-grid>
+        <ion-row >
+          <ion-col class="ion-justify-content-center" size="10">
+            <ion-img src="assets/img/EmiliaLand_logo.svg" style="width: 50vw;"></ion-img>
+          </ion-col>
+          <ion-col size="2"> 
+            <ion-buttons class="ion-justify-content-center ion-padding">
+              <ion-button><ion-icon name="home-outline" style="font-size: 8vw;"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+      
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-footer  class="ion-padding-end">
+    <ion-toolbar  class="ion-padding-end">
+      <ion-buttons >
+        <ion-grid>
+          <ion-row>
+            <ion-col class="ion-padding" size="3">
+              <ion-button fill="clear" >
+                <div class="button-column">
+                <div>
+                  <ion-icon name="fast-food-outline" slot="start" style="font-size: 8vw;"></ion-icon>
+                </div>
+                <div>
+                  <p>Ricette Reggiane</p>
+                </div>
+              </div>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-padding" size="3">
+              <ion-button fill="clear" >
+                <div class="button-column">
+                <div>
+                  <ion-icon name="star-outline" slot="start" style="font-size: 8vw;"></ion-icon>
+                </div>
+                <div>
+                  <p>Reggiani illustri</p>
+                </div>
+              </div>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-padding" size="3">
+              <ion-button fill="clear" >
+                <div class="button-column">
+                <div>
+                  <ion-icon name="book-outline" slot="start" style="font-size: 8vw;"></ion-icon>
+                </div>
+                <div>
+                  <p>Storie reggiane</p>
+                </div>
+              </div>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-padding" size="3">
+              <ion-button fill="clear" >
+                <div class="button-column">
+                <div>
+                  <ion-icon name="locate-outline" slot="start" style="font-size: 8vw;"></ion-icon>
+                </div>
+                <div>
+                  <p>Mappa attrazioni </p>
+                </div>
+              </div>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-buttons>
+    </ion-toolbar>
+
+  </ion-footer>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>
