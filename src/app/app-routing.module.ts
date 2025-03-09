@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'recipies',
+    loadChildren: () => import('./recipies/recipies.module').then( m => m.RecipiesPageModule)
+  },
+  {
+    path: 'reggiani-illustri',
+    loadChildren: () => import('./reggiani-illustri/reggiani-illustri.module').then( m => m.ReggianiIllustriPageModule)
+  },
+  {
+    path: 'storie-reggiane',
+    loadChildren: () => import('./storie-reggiane/storie-reggiane.module').then( m => m.StorieReggianePageModule)
+  },
 ];
 
 @NgModule({
