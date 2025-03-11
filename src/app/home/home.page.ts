@@ -1,5 +1,7 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { FrontendService } from '../frontend.service';
+import { ApiGatewayService } from '../api-gateway.service';
+import { Article } from '../article.model';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,10 @@ import { FrontendService } from '../frontend.service';
 })
 export class HomePage {
 
-  
-  constructor(private frontend:FrontendService) {}
+  loadedArticles: Article[];
+  constructor(private frontend:FrontendService, private api:ApiGatewayService) {
+    this.loadedArticles = api.getArticles('all');
+  }
   
   onScroll(event: CustomEvent){
     this.frontend.setMessage(event);

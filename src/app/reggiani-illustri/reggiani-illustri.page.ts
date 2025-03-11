@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FrontendService } from '../frontend.service';
+import { Article } from '../article.model';
+import { ApiGatewayService } from '../api-gateway.service';
 
 @Component({
   selector: 'app-reggiani-illustri',
@@ -9,7 +11,10 @@ import { FrontendService } from '../frontend.service';
 })
 export class ReggianiIllustriPage implements OnInit {
 
-  constructor(private frontend:FrontendService) {}
+  loadedArticles: Article[];
+      constructor(private frontend:FrontendService, private api:ApiGatewayService) {
+        this.loadedArticles = api.getArticles('vip');
+      }
 
   ngOnInit(): void {
     
