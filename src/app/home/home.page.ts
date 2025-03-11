@@ -11,6 +11,7 @@ import { Article } from '../article.model';
 })
 export class HomePage {
 
+
   loadedArticles: Article[];
   constructor(private frontend:FrontendService, private api:ApiGatewayService) {
     this.loadedArticles = api.getArticles('all');

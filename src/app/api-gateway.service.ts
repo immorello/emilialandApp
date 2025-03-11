@@ -8,7 +8,7 @@ export class ApiGatewayService {
   private _articles: Article[] = [
     new Article(
       '815d33dc-97b2-462a-90d8-dbf5f2716cd2',
-      'STORIE REGGIANE',
+      'storie-reggiane',
       1,
       1,
       'La grande nevicata del 1991',
@@ -19,7 +19,7 @@ export class ApiGatewayService {
     ),
     new Article(
       'b532e01b-8d94-4f74-aa05-bfe08e9979a9',
-      'STORIE REGGIANE',
+      'storie-reggiane',
       3,
       2,
       'Stadio Mirabello',
@@ -30,7 +30,7 @@ export class ApiGatewayService {
     ),
     new Article(
       '00e0dc09-ebd5-4e2b-9986-cb3459a17b78',
-      'REGGIANI ILLUSTRI',
+      'reggiani-illustri',
       2,
       1,
       'Marco Emilio Lepido',
@@ -41,7 +41,7 @@ export class ApiGatewayService {
     ),
     new Article(
       '2c3f1fa3-3357-4cd0-9abb-d3a3bd0d88d0',
-      'REGGIANI ILLUSTRI',
+      'reggiani-illustri',
       5,
       2,
       'Luciano Ligabue',
@@ -52,7 +52,7 @@ export class ApiGatewayService {
     ),
     new Article(
       'b9be0f45-8f1c-472d-a7a6-956cc58b875d',
-      'RICETTE REGGIANE',
+      'recipies',
       4,
       1,
       'Cappelletti',
@@ -63,7 +63,7 @@ export class ApiGatewayService {
     ),
     new Article(
       '1376a153-f7c1-40c8-a5b8-ef4bbeb478fa',
-      'RICETTE REGGIANE',
+      'recipies',
       6,
       2,
       'Tortelli verdi',
@@ -81,13 +81,13 @@ export class ApiGatewayService {
     if(category == 'all'){
       orderedArticles = this._articles.sort((a,b)=>a.homeOrder - b.homeOrder);
     }else if(category == 'recepies'){
-      let filteredArray = this._articles.filter((element)=>element.category == 'RICETTE REGGIANE');
+      let filteredArray = this._articles.filter((element)=>element.category == 'recipies');
       orderedArticles = filteredArray.sort((a,b)=>a.categoryOrder - b.categoryOrder);
     }else if(category == 'vip'){
-      let filteredArray = this._articles.filter((element)=>element.category == 'REGGIANI ILLUSTRI');
+      let filteredArray = this._articles.filter((element)=>element.category == 'reggiani-illustri');
       orderedArticles = filteredArray.sort((a,b)=>a.categoryOrder - b.categoryOrder);
     }else if(category == 'stories'){
-      let filteredArray = this._articles.filter((element)=>element.category == 'STORIE REGGIANE');
+      let filteredArray = this._articles.filter((element)=>element.category == 'storie-reggiane');
       orderedArticles = filteredArray.sort((a,b)=>a.categoryOrder - b.categoryOrder);
     }else{
       orderedArticles = []

@@ -8,7 +8,11 @@
             <ion-img src="assets/img/EmiliaLand_logo.svg" style="width: 50vw;"></ion-img>
           </ion-col>
           <ion-col size="2"> 
-            <ion-buttons class="ion-justify-content-center ion-padding">
+            <ion-buttons class="ion-justify-content-center ion-padding" style="margin-right: 10vw;">
+              
+                  <ion-button (click)="onBack()" routerDirection="backward">
+                    <ion-icon name="arrow-back" style="font-size: 8vw;"></ion-icon>
+                  </ion-button>
               <ion-button routerLink="home"><ion-icon name="home-outline" style="font-size: 8vw;"></ion-icon></ion-button>
             </ion-buttons>
           </ion-col>

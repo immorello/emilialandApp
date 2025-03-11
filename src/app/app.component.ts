@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FrontendService } from './frontend.service';
+import { NavController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ export class AppComponent {
 
   private _menuVisible: boolean;
 
-  constructor(private frontend: FrontendService) {
+  constructor(private frontend: FrontendService, private location: Location) {
     this._menuVisible = true;
   }
 
@@ -35,6 +37,10 @@ export class AppComponent {
 
   public set menuVisible(value:boolean){
     this._menuVisible = value;
+  }
+
+  public onBack(){
+    this.location.back()
   }
 
 

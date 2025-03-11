@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { ApiGatewayService } from 'src/app/api-gateway.service';
 import { Article } from 'src/app/article.model';
 import { FrontendService } from 'src/app/frontend.service';
