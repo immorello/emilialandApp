@@ -10,7 +10,9 @@
  */
 
 :root{
-    --ion-padding:5px;
+    --ion-padding:2px;
+    --ion-margin:5px;
+    --ion-background-color:white;
 }
 
 h1{
@@ -55,4 +57,4 @@ h3{
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/*@import "@ionic/angular/css/palettes/dark.system.css";*/

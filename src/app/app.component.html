@@ -1,4 +1,5 @@
 <ion-app >
+  <ion-router-outlet></ion-router-outlet>
   <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-grid>
@@ -17,7 +18,27 @@
       
     </ion-toolbar>
   </ion-header>
-  
+  <ion-tabs >
+    <ion-tab-bar slot="bottom" *ngIf="menuVisible" class="ion-text-center ion-margin ">
+      <ion-tab-button tab="recipies">
+        <ion-label>Ricette</ion-label>
+        <ion-icon name="fast-food-outline" class="ion-padding"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="reggiani-illustri">
+        <ion-label>VIP</ion-label>
+        <ion-icon name="star-outline" class="ion-padding"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="storie-reggiane">
+        <ion-label>Storie</ion-label>
+        <ion-icon name="book-outline" class="ion-padding"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="storie-reggiane">
+        <ion-label>Mappa</ion-label>
+        <ion-icon name="locate-outline" class="ion-padding"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>  
+  <!--
   <ion-footer  class="ion-padding-end" *ngIf="menuVisible">
     <ion-toolbar  class="ion-padding-end">
       <ion-buttons >
@@ -76,6 +97,6 @@
       </ion-buttons>
     </ion-toolbar>
 
-  </ion-footer>
-  <ion-router-outlet></ion-router-outlet>
+  </ion-footer>-->
+  
 </ion-app>
