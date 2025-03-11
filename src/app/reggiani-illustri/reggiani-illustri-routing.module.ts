@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ReggianiIllustriPage
+  },
+  {
+    path: ':vipId',
+    loadChildren: () => import('./single-vip/single-vip.module').then( m => m.SingleVipPageModule)
   }
+
 ];
 
 @NgModule({

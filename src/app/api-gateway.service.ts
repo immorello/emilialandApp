@@ -94,4 +94,10 @@ export class ApiGatewayService {
     }
     return orderedArticles
   }
+
+  public getSingleArticle(uuid:string){
+    let loadedArticle: Article = this._articles.filter((element)=>element.uuid == uuid)[0];
+    return loadedArticle
+  }
 }
+

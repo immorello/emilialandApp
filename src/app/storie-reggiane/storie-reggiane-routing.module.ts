@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: StorieReggianePage
+  },
+  {
+    path: ':storyId',
+    loadChildren: () => import('./single-story/single-story.module').then( m => m.SingleStoryPageModule)
   }
+
 ];
 
 @NgModule({

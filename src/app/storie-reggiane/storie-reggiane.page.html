@@ -1,6 +1,6 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <ion-grid class="grid-class ion-no-padding">
-    <ion-row class="ion-padding-vertical" *ngFor="let article of loadedArticles">
+    <ion-row class="ion-padding-vertical" *ngFor="let article of loadedArticles" [routerLink]="['/','recipies',article.uuid]" router-direction="forward">
       <ion-col>
         <ion-text>
           <h1 class="ion-padding">{{article.title}}</h1>

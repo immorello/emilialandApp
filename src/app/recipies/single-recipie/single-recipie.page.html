@@ -1,0 +1,35 @@
+
+
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <ion-grid class="grid-class ion-no-padding">
+    <ion-row class="ion-padding-vertical">
+      <ion-col>
+        <ion-text>
+          <h1 class="ion-padding">{{loadedArticle.title}}</h1>
+          <h3 class="ion-padding-horizontal ion-no-margin">
+            {{loadedArticle.category}}
+          </h3>
+          <h5 class="ion-padding"><i>{{loadedArticle.incipit}}</i></h5>
+        </ion-text>
+        <ion-img src="{{loadedArticle.articleImageUrl}}"></ion-img>
+        <div *ngIf="loadedArticle.extraContents != null">
+          <ion-list [inset]="true" >
+            <ion-list-header>
+              <ion-label><h2><b>Ingredienti</b></h2></ion-label>
+            </ion-list-header>
+            <div *ngFor="let item of loadedArticle.extraContents">
+              <ion-item>
+                <ion-label>{{item}}</ion-label>
+              </ion-item>
+            </div>
+            
+          </ion-list>
+        </div>
+        
+        <ion-text class="ion-text-justify">
+          <p style="padding-left: 5vw;padding-right: 5vw;">{{loadedArticle.articleText}}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

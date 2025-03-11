@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: RecipiesPage
+  },
+  {
+    path: ':recipieId',
+    loadChildren: () => import('./single-recipie/single-recipie.module').then( m => m.SingleRecipiePageModule)
   }
+
 ];
 
 @NgModule({
