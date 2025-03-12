@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FrontendService } from './frontend.service';
 import { NavController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,11 @@ import { Location } from '@angular/common';
 export class AppComponent {
 
   private _menuVisible: boolean;
+  private _showBackButton: boolean;
 
   constructor(private frontend: FrontendService, private location: Location) {
     this._menuVisible = true;
+    this._showBackButton = true;
   }
 
   ngAfterViewInit() {
@@ -29,10 +32,24 @@ export class AppComponent {
         }
       }
     );
+    this.frontend.getBackButtonEvent.subscribe(
+      (event:String)=>{
+        if (event == "ENTERED"){
+          this._showBackButton = false;
+        }else if(event == "LEFT"){
+          this._showBackButton = true;
+        }
+      }
+    )
+    
   }
 
   public get menuVisible(){
     return this._menuVisible;
+  }
+
+  public get showBackButton(){
+    return this._showBackButton;
   }
 
   public set menuVisible(value:boolean){

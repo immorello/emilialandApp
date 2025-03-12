@@ -4,7 +4,19 @@
       <ion-col>
         <ion-text>
           <h1 class="ion-padding">{{article.title}}</h1>
-          <h3 class="ion-padding-horizontal ion-no-margin">{{article.category}}</h3>
+          <div *ngIf="article.category === 'recipies'; else storiesBlock">
+            <h3 class="ion-padding-horizontal ion-no-margin">RICETTE REGGIANE</h3>
+          </div>
+          
+          <ng-template #storiesBlock>
+            <div *ngIf="article.category === 'storie-reggiane'; else otherBlock">
+              <h3 class="ion-padding-horizontal ion-no-margin">STORIE REGGIANE</h3>
+            </div>
+          </ng-template>
+          
+          <ng-template #otherBlock>
+            <h3 class="ion-padding-horizontal ion-no-margin">REGGIANI ILLUSTRI</h3>
+          </ng-template>
           <h5 class="ion-padding"><i>{{article.incipit}}</i></h5>
         </ion-text>
           

@@ -21,4 +21,12 @@ export class HomePage {
     this.frontend.setMessage(event);
     return
   }
+
+  ionViewWillEnter(){
+    this.frontend.setBackButtonStatus("ENTERED");
+  }
+
+  ionViewWillLeave(){
+    this.frontend.setBackButtonStatus("LEFT");
+  }
 }

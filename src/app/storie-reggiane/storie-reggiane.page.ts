@@ -6,21 +6,21 @@ import { ApiGatewayService } from '../api-gateway.service';
   selector: 'app-storie-reggiane',
   templateUrl: './storie-reggiane.page.html',
   styleUrls: ['./storie-reggiane.page.scss'],
-  standalone:false
+  standalone: false,
 })
 export class StorieReggianePage implements OnInit {
-
   loadedArticles: Article[];
-        constructor(private frontend:FrontendService, private api:ApiGatewayService) {
-          this.loadedArticles = api.getArticles('stories');
-        }
+  constructor(
+    private frontend: FrontendService,
+    private api: ApiGatewayService
+  ) {
+    this.loadedArticles = api.getArticles('stories');
+  }
 
   onScroll(event: CustomEvent) {
     this.frontend.setMessage(event);
-    return
+    return;
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
