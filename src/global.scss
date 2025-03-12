@@ -9,55 +9,71 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
-:root{
-    --ion-padding:2px;
-    --ion-margin:5px;
-    --ion-background-color:white;
+:root {
+  --ion-padding: 2px;
+  --ion-margin: 5px;
+  --ion-background-color: white;
 }
-@media only screen and (max-width: 600px){
-    h1{
-        font-family:Arial, Helvetica, sans-serif;
-        font-size:10vw;
-        font-weight: 600;
-        
-    }
-    h3{
-        color: black;
-        font-size: 4vw;
-    }
-    
-    h3{
-        color: grey;
-    }
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10vw;
+    font-weight: 600;
+  }
+  h3 {
+    color: black;
+    font-size: 4vw;
+  }
 
-    .grid-class {
-        margin-top: 18vw;
-      }
+  h3 {
+    color: grey;
+  }
+
+  .grid-class {
+    margin-top: 18vw;
+  }
+
+  #main-logo {
+    width: 50vw;
+  }
+
+  .main-menu-icons {
+    font-size: 8vw;
+    padding: 5px 5px 5px;
+  }
 }
 
 @media only screen and (min-width: 768px) {
-    h1{
-        font-family:Arial, Helvetica, sans-serif;
-        font-size:5vw;
-        font-weight: 600;
-        
-    }
-    h3{
-        color: black;
-        font-size: 2vw;
-    }
-    
-    h3{
-        color: grey;
-    }
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+    font-weight: 600;
+  }
+  h3 {
+    color: black;
+  }
 
-    .grid-class {
-        margin-top: 15vw;
-      }
+  h3 {
+    color: grey;
+  }
+
+  .grid-class {
+    margin-top: 4vw;
+  }
+
+  #main-logo {
+    width: 10vw;
+  }
+
+  .main-menu-icons {
+    font-size: 2vw;
+    padding: 5px 5px 5px;
+  }
+
+  /*.articles-image{
+    width: 20vw;
+  }*/
 }
-
-
-
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";

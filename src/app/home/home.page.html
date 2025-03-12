@@ -1,7 +1,7 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <ion-grid class="grid-class ion-no-padding">
     <ion-row class="ion-padding-vertical ion-justify-content-center" *ngFor="let article of loadedArticles" [routerLink]="['/',article.category,article.uuid]">
-      <ion-col size="12" size-lg="6">
+      <ion-col size="12" size-lg="3" size-md="5">
         <ion-text>
           <h1 class="ion-padding">{{article.title}}</h1>
           <div *ngIf="article.category === 'recipies'; else storiesBlock">
@@ -20,7 +20,7 @@
           <h5 class="ion-padding"><i>{{article.incipit}}</i></h5>
         </ion-text>
           
-          <ion-img  src={{article.articleImageUrl}}></ion-img>
+          <ion-img  src={{article.articleImageUrl}} class="articles-image"></ion-img>
         
       </ion-col>
     </ion-row >
