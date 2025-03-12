@@ -14,22 +14,49 @@
     --ion-margin:5px;
     --ion-background-color:white;
 }
-
-h1{
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:10vw;
-    font-weight: 600;
+@media only screen and (max-width: 600px){
+    h1{
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:10vw;
+        font-weight: 600;
+        
+    }
+    h3{
+        color: black;
+        font-size: 4vw;
+    }
     
+    h3{
+        color: grey;
+    }
+
+    .grid-class {
+        margin-top: 18vw;
+      }
 }
 
-h3{
-    color: black;
-    font-size: 4vw;
+@media only screen and (min-width: 768px) {
+    h1{
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:5vw;
+        font-weight: 600;
+        
+    }
+    h3{
+        color: black;
+        font-size: 2vw;
+    }
+    
+    h3{
+        color: grey;
+    }
+
+    .grid-class {
+        margin-top: 15vw;
+      }
 }
 
-h3{
-    color: grey;
-}
+
 
 
 /* Core CSS required for Ionic components to work properly */
