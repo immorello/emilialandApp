@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReggianiIllustriPageRoutingModule } from './reggiani-illustri-routing.module';
 
 import { ReggianiIllustriPage } from './reggiani-illustri.page';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReggianiIllustriPageRoutingModule
+    ReggianiIllustriPageRoutingModule,
+    ScrollingModule
   ],
   declarations: [ReggianiIllustriPage]
 })

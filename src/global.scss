@@ -14,7 +14,13 @@
   --ion-margin: 5px;
   --ion-background-color: white;
 }
+
+.ion-content-scroll-host {
+  height: 100vh; /* O un valore fisso, ad esempio: 500px */
+}
+
 @media only screen and (max-width: 600px) {
+  
   h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10vw;

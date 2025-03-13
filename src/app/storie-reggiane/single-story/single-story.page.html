@@ -11,7 +11,7 @@
           </h3>
           <h5 class="ion-padding"><i>{{loadedArticle.incipit}}</i></h5>
         </ion-text>
-        <ion-img src="{{loadedArticle.articleImageUrl}}"></ion-img>
+        <ion-img [src]="loadedArticle.articleImageUrl"></ion-img>
          
         <ion-text class="ion-text-justify">
           <p style="padding-left: 5vw;padding-right: 5vw;">{{loadedArticle.articleText}}</p>

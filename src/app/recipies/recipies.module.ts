@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RecipiesPageRoutingModule } from './recipies-routing.module';
 
 import { RecipiesPage } from './recipies.page';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecipiesPageRoutingModule
+    RecipiesPageRoutingModule,
+    ScrollingModule
   ],
   declarations: [RecipiesPage]
 })

@@ -92,12 +92,12 @@ export class ApiGatewayService {
     }else{
       orderedArticles = []
     }
-    return orderedArticles
+    return [...orderedArticles]
   }
 
   public getSingleArticle(uuid:string){
     let loadedArticle: Article = this._articles.filter((element)=>element.uuid == uuid)[0];
-    return loadedArticle
+    return {...loadedArticle}
   }
 }
 

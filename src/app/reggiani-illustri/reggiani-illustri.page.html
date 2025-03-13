@@ -1,21 +1,32 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <ion-grid class="grid-class ion-no-padding">
-    <ion-row class="ion-padding-vertical ion-justify-content-center" *ngFor="let article of loadedArticles" [routerLink]="['/','reggiani-illustri',article.uuid]">
-      <ion-col size="12" size-lg="3" size-md="5">
-        <ion-text>
-          <h1 class="ion-padding">{{article.title}}</h1>
-          <h3 class="ion-padding-horizontal ion-no-margin">REGGIANI ILLUSTRI</h3>
-          <h5 class="ion-padding"><i>{{article.incipit}}</i></h5>
-        </ion-text>
-          
-          <ion-img  src={{article.articleImageUrl}}></ion-img>
-        
-      </ion-col>
-    </ion-row >
-    
+    <cdk-virtual-scroll-viewport
+      itemSize="448"
+      minBufferPx="500"
+      maxBufferPx="1350"
+      class="ion-content-scroll-host"
+    >
+      <ion-list>
+        <ion-item *cdkVirtualFor="let article of loadedArticles">
+          <ion-row
+            class="ion-padding-vertical ion-justify-content-center"
+            
+            [routerLink]="['/','reggiani-illustri',article.uuid]"
+          >
+            <ion-col size="12" size-lg="3" size-md="5">
+              <ion-text>
+                <h1 class="ion-padding">{{article.title}}</h1>
+                <h3 class="ion-padding-horizontal ion-no-margin">
+                  REGGIANI ILLUSTRI
+                </h3>
+                <h5 class="ion-padding"><i>{{article.incipit}}</i></h5>
+              </ion-text>
 
+              <ion-img [src]="article.articleImageUrl"></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    </cdk-virtual-scroll-viewport>
   </ion-grid>
-  
-
-
 </ion-content>
