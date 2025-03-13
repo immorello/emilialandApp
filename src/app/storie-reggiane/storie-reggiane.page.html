@@ -7,7 +7,7 @@
       class="ion-content-scroll-host"
     >
       <ion-list>
-        <ion-item *cdkVirtualFor="let article of loadedArticles">
+        <ion-item *cdkVirtualFor="let article of loadedArticles;index as i">
           <ion-row
             class="ion-padding-vertical ion-justify-content-center"
             
@@ -16,7 +16,13 @@
           >
             <ion-col size="12" size-lg="3" size-md="5">
               <ion-text>
-                <h1 class="ion-padding">{{article.title}}</h1>
+                <div *ngIf="i == 0; else smallTitleBlock">
+                  <h1 class="ion-padding">{{article.title}}</h1>
+                </div>
+                <ng-template #smallTitleBlock>
+                  <h2 class="ion-padding">{{article.title}}</h2>
+                </ng-template>
+                
                 <h3 class="ion-padding-horizontal ion-no-margin">
                   STORIE REGGIANE
                 </h3>

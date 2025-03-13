@@ -9,21 +9,21 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
-:root {
-  --ion-padding: 2px;
-  --ion-margin: 5px;
-  --ion-background-color: white;
-}
-
+ 
 .ion-content-scroll-host {
   height: 100vh; /* O un valore fisso, ad esempio: 500px */
 }
-
-@media only screen and (max-width: 600px) {
-  
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) { 
   h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10vw;
+    font-weight: 600;
+  }
+
+  h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 6vw;
     font-weight: 600;
   }
   h3 {
@@ -36,7 +36,42 @@
   }
 
   .grid-class {
-    margin-top: 18vw;
+    margin-top: 17vw;
+  }
+
+  #main-logo {
+    width: 50vw;
+  }
+
+  .main-menu-icons {
+    font-size: 8vw;
+    padding: 5px 5px 5px;
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) { 
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10vw;
+    font-weight: 600;
+  }
+
+  h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 6vw;
+    font-weight: 600;
+  }
+  h3 {
+    color: black;
+    font-size: 4vw;
+  }
+
+  h3 {
+    color: grey;
+  }
+
+  .grid-class {
+    margin-top: 17vw;
   }
 
   #main-logo {
@@ -49,7 +84,46 @@
   }
 }
 
+
+/* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+    font-weight: 600;
+  }
+  h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 6vw;
+    font-weight: 600;
+  }
+  h3 {
+    color: black;
+  }
+
+  h3 {
+    color: grey;
+  }
+
+  .grid-class {
+    margin-top: 4vw;
+  }
+
+  #main-logo {
+    width: 20vw;
+  }
+
+  .main-menu-icons {
+    font-size: 2vw;
+    padding: 5px 5px 5px;
+  }
+
+  .articles-image{
+    width: 20vw;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
   h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2vw;
@@ -76,9 +150,41 @@
     padding: 5px 5px 5px;
   }
 
-  /*.articles-image{
+  .articles-image{
     width: 20vw;
-  }*/
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+    font-weight: 600;
+  }
+  h3 {
+    color: black;
+  }
+
+  h3 {
+    color: grey;
+  }
+
+  .grid-class {
+    margin-top: 4vw;
+  }
+
+  #main-logo {
+    width: 10vw;
+  }
+
+  .main-menu-icons {
+    font-size: 2vw;
+    padding: 5px 5px 5px;
+  }
+
+  .articles-image{
+    width: 20vw;
+  }
 }
 
 /* Core CSS required for Ionic components to work properly */

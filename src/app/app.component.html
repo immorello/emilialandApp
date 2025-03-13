@@ -1,18 +1,18 @@
 <ion-app >
   <ion-router-outlet></ion-router-outlet>
-  <ion-header [translucent]="true">
-    <ion-toolbar>
+  <ion-header>
+    <ion-toolbar color="primary">
       <ion-grid>
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col class="ion-justify-content-center" size="10" size-lg="8">
             <ion-img src="assets/img/EmiliaLand_logo.svg" id="main-logo"></ion-img>
           </ion-col>
           <ion-col size="2"> 
-            <ion-buttons class="ion-justify-content-center ion-padding" style="margin-right: 10vw;">   
-                  <ion-button (click)="onBack()" routerDirection="backward" *ngIf="showBackButton">
+            <ion-buttons class="ion-justify-content-center ion-padding" style="margin-right: 10vw;" >   
+                  <ion-button (click)="onBack()" routerDirection="backward" *ngIf="showBackButton" color="tertiary">
                     <ion-icon name="arrow-back" class="main-menu-icons"></ion-icon>
                   </ion-button>
-                  <ion-button routerLink="home">
+                  <ion-button routerLink="home" color="tertiary">
                     <ion-icon name="home-outline" class="main-menu-icons"></ion-icon>
                   </ion-button>
             </ion-buttons>
@@ -23,84 +23,24 @@
     </ion-toolbar>
   </ion-header>
   <ion-tabs >
-    <ion-tab-bar slot="bottom" *ngIf="menuVisible" class="ion-text-center ion-margin ">
-      <ion-tab-button tab="recipies">
+    <ion-tab-bar slot="bottom" *ngIf="menuVisible" class="ion-text-center" color="primary">
+      <ion-tab-button tab="recipies" >
         <ion-label>Ricette</ion-label>
         <ion-icon name="fast-food-outline" class="ion-padding"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="reggiani-illustri">
+      <ion-tab-button tab="reggiani-illustri" >
         <ion-label>VIP</ion-label>
         <ion-icon name="star-outline" class="ion-padding"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="storie-reggiane">
+      <ion-tab-button tab="storie-reggiane" >
         <ion-label>Storie</ion-label>
         <ion-icon name="book-outline" class="ion-padding"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="storie-reggiane">
+      <ion-tab-button tab="storie-reggiane" >
         <ion-label>Mappa</ion-label>
         <ion-icon name="locate-outline" class="ion-padding"></ion-icon>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>  
-  <!--
-  <ion-footer  class="ion-padding-end" *ngIf="menuVisible">
-    <ion-toolbar  class="ion-padding-end">
-      <ion-buttons >
-        <ion-grid>
-          <ion-row>
-            <ion-col class="ion-padding" size="3">
-              <ion-button fill="clear" routerLink="recipies">
-                <div class="button-column">
-                <div>
-                  <ion-icon name="fast-food-outline" slot="start" style="font-size: 8vw;"></ion-icon>
-                </div>
-                <div>
-                  <p>Ricette Reggiane</p>
-                </div>
-              </div>
-              </ion-button>
-            </ion-col>
-            <ion-col class="ion-padding" size="3">
-              <ion-button fill="clear" routerLink="reggiani-illustri">
-                <div class="button-column">
-                <div>
-                  <ion-icon name="star-outline" slot="start" style="font-size: 8vw;"></ion-icon>
-                </div>
-                <div>
-                  <p>Reggiani illustri</p>
-                </div>
-              </div>
-              </ion-button>
-            </ion-col>
-            <ion-col class="ion-padding" size="3">
-              <ion-button fill="clear" routerLink="storie-reggiane">
-                <div class="button-column">
-                <div>
-                  <ion-icon name="book-outline" slot="start" style="font-size: 8vw;"></ion-icon>
-                </div>
-                <div>
-                  <p>Storie reggiane</p>
-                </div>
-              </div>
-              </ion-button>
-            </ion-col>
-            <ion-col class="ion-padding" size="3">
-              <ion-button fill="clear" >
-                <div class="button-column">
-                <div>
-                  <ion-icon name="locate-outline" slot="start" style="font-size: 8vw;"></ion-icon>
-                </div>
-                <div>
-                  <p>Mappa attrazioni </p>
-                </div>
-              </div>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-buttons>
-    </ion-toolbar>
-
-  </ion-footer>-->
   
 </ion-app>
