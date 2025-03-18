@@ -14,7 +14,7 @@ export class StorieReggianePage implements OnInit {
     private frontend: FrontendService,
     private api: ApiGatewayService
   ) {
-    this.loadedArticles = api.getArticles('stories');
+    this.loadedArticles = [];
   }
 
   onScroll(event: CustomEvent) {
@@ -23,4 +23,12 @@ export class StorieReggianePage implements OnInit {
   }
 
   ngOnInit() {}
+
+  ionViewWillEnter(){
+    this.api.getArticlesByCategory('storie-reggiane').subscribe(
+      (artcles:Article[])=>{
+        this.loadedArticles = artcles;
+      }
+    )
+  }
 }

@@ -14,8 +14,11 @@ export class HomePage {
 
   loadedArticles: Article[];
   constructor(private frontend:FrontendService, private api:ApiGatewayService) {
-    this.loadedArticles = api.getArticles('all');
+    this.loadedArticles = [];
+    
   }
+
+  
   
   onScroll(event: CustomEvent){
     this.frontend.setMessage(event);
@@ -24,6 +27,9 @@ export class HomePage {
 
   ionViewWillEnter(){
     this.frontend.setBackButtonStatus("ENTERED");
+    this.api.getAllArticles().subscribe((articles: Article[]) => {
+      this.loadedArticles = articles;
+  });
   }
 
   ionViewWillLeave(){

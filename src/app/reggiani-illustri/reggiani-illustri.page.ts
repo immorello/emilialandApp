@@ -13,7 +13,7 @@ export class ReggianiIllustriPage implements OnInit {
 
   loadedArticles: Article[];
       constructor(private frontend:FrontendService, private api:ApiGatewayService) {
-        this.loadedArticles = api.getArticles('vip');
+        this.loadedArticles = [];
       }
 
   ngOnInit(): void {
@@ -23,5 +23,13 @@ export class ReggianiIllustriPage implements OnInit {
   onScroll(event: CustomEvent){
     this.frontend.setMessage(event);
     return
+  }
+
+  ionViewWillEnter(){
+    this.api.getArticlesByCategory('reggiani-illustri').subscribe(
+      (artcles:Article[])=>{
+        this.loadedArticles = artcles;
+      }
+    )
   }
 }

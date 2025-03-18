@@ -20,7 +20,7 @@ export class SingleStoryPage implements OnInit {
       private frontend: FrontendService
     ) {
       this.uuid = this.router.url.split('/')[2];
-      this.loadedArticle = this.api.getSingleArticle(this.uuid);
+      this.loadedArticle = new Article(this.uuid,'',8,8,'','',null,'','');
     }
   
     ngOnInit() {}
@@ -28,5 +28,13 @@ export class SingleStoryPage implements OnInit {
     onScroll(event: CustomEvent) {
       this.frontend.setMessage(event);
       return;
+    }
+
+    ionViewWillEnter(){
+      this.api.getSingleArticle(this.uuid).subscribe(
+        (article:Article)=>{
+          this.loadedArticle = article;
+        }
+      )
     }
 }

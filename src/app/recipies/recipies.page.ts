@@ -13,7 +13,8 @@ export class RecipiesPage implements OnInit {
 
   loadedArticles: Article[];
     constructor(private frontend:FrontendService, private api:ApiGatewayService) {
-      this.loadedArticles = api.getArticles('recepies');
+      this.loadedArticles = [];
+      console.log(this.loadedArticles);
     }
 
   onScroll(event: CustomEvent) {
@@ -21,7 +22,16 @@ export class RecipiesPage implements OnInit {
     return
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
+    this.api.getArticlesByCategory('recipies').subscribe(
+      (artcles:Article[])=>{
+        this.loadedArticles = artcles;
+      }
+    )
+  }
+
+  ngOnInit(): void {
+    
   }
 
 }
