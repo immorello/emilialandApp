@@ -12,7 +12,7 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
-environments/
+/src/environments/
 /.sourcemaps
 /.versions
 /coverage
@@ -31,6 +31,7 @@ environments/
 
 # Node
 /node_modules
+
 npm-debug.log
 yarn-error.log
 
