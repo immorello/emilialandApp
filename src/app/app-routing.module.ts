@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'storie-reggiane',
     loadChildren: () => import('./storie-reggiane/storie-reggiane.module').then( m => m.StorieReggianePageModule)
+  },  {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   },
+
 ];
 
 @NgModule({

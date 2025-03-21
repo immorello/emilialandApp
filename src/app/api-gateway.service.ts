@@ -10,7 +10,6 @@ import { UrlSegment } from '@angular/router';
   providedIn: 'root',
 })
 export class ApiGatewayService {
-  private _articles: Article[] = [];
   private apiKey: string = environment.apiKey;
   constructor(private http: HttpClient) {}
 
@@ -85,31 +84,30 @@ export class ApiGatewayService {
   }
 
   public getSingleArticle(uuid: string) {
-    let url = 'https://dwgsfo9djl.execute-api.eu-central-1.amazonaws.com/dev/get-article-by-id?uuid='+uuid
+    let url =
+      'https://dwgsfo9djl.execute-api.eu-central-1.amazonaws.com/dev/get-article-by-id?uuid=' +
+      uuid;
     const headers = new HttpHeaders({
       'X-Api-Key': this.apiKey,
       'Content-Type': 'application/json',
     });
-    return this.http.get<ArticleData>(url,{headers}).pipe(
+    return this.http.get<ArticleData>(url, { headers }).pipe(
       last(),
-      map(
-        (data)=>{
-          let item = data['Items'][0]
-          let fetchedArticle:Article = new Article(
-            item.article_id.S,
-            item.category.S,
-            +item.home_order.N,
-            +item.category_order.N,
-            item.title.S,
-            item.incipit.S,
-            item.ExtraContents ? [item.ExtraContents.S] : null,
-            item.article_text.S,
-            item.image_URL.S
-          )
-          return fetchedArticle
-        }
-      )
-    )
-    
+      map((data) => {
+        let item = data['Items'][0];
+        let fetchedArticle: Article = new Article(
+          item.article_id.S,
+          item.category.S,
+          +item.home_order.N,
+          +item.category_order.N,
+          item.title.S,
+          item.incipit.S,
+          item.ExtraContents ? [item.ExtraContents.S] : null,
+          item.article_text.S,
+          item.image_URL.S
+        );
+        return fetchedArticle;
+      })
+    );
   }
 }

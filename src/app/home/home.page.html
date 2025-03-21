@@ -1,56 +1,65 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <ion-grid class="grid-class ion-no-padding">
-    
+  <ion-grid class="grid-class ion-no-padding ion-justify-content-center">
     <cdk-virtual-scroll-viewport
       itemSize="448"
       minBufferPx="500"
       maxBufferPx="1350"
       class="ion-content-scroll-host"
     >
-      <ion-list> 
-        <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-horizontal sponsor-row">
+      <ion-list>
+        <ion-item>
+        <ion-row
+          class="ion-justify-content-center ion-align-items-center sponsor-row"
+        >
           <ion-col>
-            <ion-img src="assets/img/sponsors/160180.jpg">
+            <ion-img src="assets/img/sponsors/160180.jpg"> </ion-img>
+          </ion-col>
+          <ion-col>
+            <ion-img
+              src="assets/img/sponsors/30e93b_b036485dcf4a4600944e07394ac0ec94mv2.jpg"
+            >
             </ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="assets/img/sponsors/30e93b_b036485dcf4a4600944e07394ac0ec94mv2.jpg">
-            </ion-img>
-          </ion-col>
-          <ion-col>
-            <ion-img src="assets/img/sponsors/iren_logo-768x479.jpg">
-            </ion-img>
+            <ion-img src="assets/img/sponsors/iren_logo-768x479.jpg"> </ion-img>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-horizontal sponsor-row">
+      </ion-item>
+      <ion-item>
+        <ion-row
+          class="ion-justify-content-center ion-align-items-center ion-padding-horizontal sponsor-row"
+        >
           <ion-col>
             <ion-img src="assets/img/sponsors/logo-agenzia-ok-768x231.jpg">
             </ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="assets/img/sponsors/SGB_Logo_RGB.jpg">
-            </ion-img>
+            <ion-img src="assets/img/sponsors/SGB_Logo_RGB.jpg"> </ion-img>
           </ion-col>
           <ion-col>
-            <ion-img src="assets/img/sponsors/Project-Group_logo_2018-768x198.jpg">
+            <ion-img
+              src="assets/img/sponsors/Project-Group_logo_2018-768x198.jpg"
+            >
             </ion-img>
           </ion-col>
         </ion-row>
-        <ion-item *cdkVirtualFor="let article of loadedArticles;index as i" >
+      </ion-item>
+      <div *cdkVirtualFor="let article of loadedArticles;index as i" >
+        <ion-item [ngClass]="{ 'no-padding-item': i === 0, 'border-main-article': i === 0 }">
           <ion-row
-            class="ion-padding-vertical ion-justify-content-center"
+            class="ion-no-padding ion-justify-content-center"
             [routerLink]="['/',article.category,article.uuid]"
           >
             <ion-col size="12">
               <ion-text>
                 <div *ngIf="i == 0; else smallTitleBlock">
-                  <h1 class="ion-padding">{{article.title}}</h1>
+                  <h1 class="ion-padding" [ngClass]="{'main-article': i === 0}">{{article.title}}</h1>
                 </div>
                 <ng-template #smallTitleBlock>
                   <h2 class="ion-padding">{{article.title}}</h2>
                 </ng-template>
                 <div *ngIf="article.category === 'recipies'; else storiesBlock">
-                  <h3 class="ion-padding-horizontal ion-no-margin">
+                  <h3 class="ion-padding-horizontal ion-no-margin" [ngClass]="{'main-article': i === 0}">
                     RICETTE REGGIANE
                   </h3>
                 </div>
@@ -58,26 +67,37 @@
                   <div
                     *ngIf="article.category === 'storie-reggiane'; else otherBlock"
                   >
-                    <h3 class="ion-padding-horizontal ion-no-margin">
+                    <h3 class="ion-padding-horizontal ion-no-margin" [ngClass]="{'main-article': i === 0}">
                       STORIE REGGIANE
                     </h3>
                   </div>
                 </ng-template>
                 <ng-template #otherBlock>
-                  <h3 class="ion-padding-horizontal ion-no-margin">
+                  <h3 class="ion-padding-horizontal ion-no-margin" [ngClass]="{'main-article': i === 0}">
                     REGGIANI ILLUSTRI
                   </h3>
                 </ng-template>
-                <h5 class="ion-padding"><i>{{article.incipit}}</i></h5>
+                <h5 class="ion-padding" [ngClass]="{'main-article': i === 0}"><i>{{article.incipit}}</i></h5>
               </ion-text>
-
-              <ion-img
+              <div *ngIf="i == 0; else otherImages">
+                <ion-img 
                 [src]="article.articleImageUrl"
-                class="articles-image"
+                class="articles-image main-image"
               ></ion-img>
+              </div>
+              <ng-template  #otherImages>
+                <ion-img
+                  [src]="article.articleImageUrl"
+                  class="article-image"
+                ></ion-img>
+              </ng-template >
+              
             </ion-col>
           </ion-row>
+          
         </ion-item>
+      </div>
+        
       </ion-list>
     </cdk-virtual-scroll-viewport>
   </ion-grid>
