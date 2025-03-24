@@ -15,7 +15,7 @@ export interface returnedArticleObject{
   image_URL: ImageURL;
   incipit: Incipit;
   title: Title;
-  ExtraContents?: ExtraContents | null;
+  extra_contents?: ExtraContents | null ;
 }
 
 export interface ArticleId{
@@ -43,5 +43,5 @@ export interface Title{
   S : string;
 }
 export interface ExtraContents{
-  S : string;
+  SS : string[];
 }

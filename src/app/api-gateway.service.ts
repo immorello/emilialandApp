@@ -24,6 +24,7 @@ export class ApiGatewayService {
 
     return this.http.get<ArticleData>(url, { headers }).pipe(
       map((data) => {
+        
         let fetchedArticles: Article[] = [];
         let dataLen = data['Count'];
 
@@ -36,7 +37,7 @@ export class ApiGatewayService {
             +singleItem.category_order.N,
             singleItem.title.S,
             singleItem.incipit.S,
-            singleItem.ExtraContents ? [singleItem.ExtraContents.S] : null,
+            Array.isArray(singleItem.extra_contents?.SS) ? (singleItem.extra_contents.SS as string[]) : null,
             singleItem.article_text.S,
             singleItem.image_URL.S
           );
@@ -71,7 +72,7 @@ export class ApiGatewayService {
             +singleItem.category_order.N,
             singleItem.title.S,
             singleItem.incipit.S,
-            singleItem.ExtraContents ? [singleItem.ExtraContents.S] : null,
+            Array.isArray(singleItem.extra_contents?.SS) ? (singleItem.extra_contents.SS as string[]) : null,
             singleItem.article_text.S,
             singleItem.image_URL.S
           );
@@ -102,11 +103,11 @@ export class ApiGatewayService {
           +item.category_order.N,
           item.title.S,
           item.incipit.S,
-          item.ExtraContents ? [item.ExtraContents.S] : null,
+          Array.isArray(item.extra_contents?.SS) ? (item.extra_contents.SS as string[]) : null,
           item.article_text.S,
           item.image_URL.S
         );
-        return fetchedArticle;
+        return {...fetchedArticle};
       })
     );
   }

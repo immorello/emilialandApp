@@ -1,9 +1,10 @@
 
-ion-row {
+.ingredient-row {
     border-color: #bec0c969;
     border-top-style: solid;
     border-bottom-style: solid;
     border-width: 1px;
+    
   }
 
   .ion-padding{
@@ -13,3 +14,10 @@ ion-row {
   .ion-padding-horizontal{
     padding: 5px;
   };
+
+
+  #quantita{
+    padding-left: 3vw;
+  };
+
+ 
