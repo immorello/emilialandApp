@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FrontendService } from './frontend.service';
 import { NavController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',

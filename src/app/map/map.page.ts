@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FrontendService } from '../frontend.service';
 import { Title } from '@angular/platform-browser';
 import { MapAdvancedMarker } from '@angular/google-maps';
+import { Capacitor } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-map',
@@ -69,6 +71,7 @@ export class MapPage implements OnInit {
 
   async initMap(): Promise<void> {
     console.log('partito');
+    this.locateUser();
     const { Map } = (await google.maps.importLibrary(
       'maps'
     )) as google.maps.MapsLibrary;
@@ -81,8 +84,24 @@ export class MapPage implements OnInit {
     });
 
     this.addMarkers();
+    
   }
-
+  private locateUser(){
+    if(!Capacitor.isPluginAvailable('Geolocation')){
+      console.log("GEO NOT READY");
+      return;
+    }
+    Geolocation.getCurrentPosition().then(
+      (data)=>{
+        let position = data.coords;
+        let lat = position.latitude;
+        let lon = position.longitude;
+        this._initPosition.lat = lat;
+        this._initPosition.lng = lon;
+      }
+    );
+    
+  }
   async addMarkers() {
     const { AdvancedMarkerElement } = (await google.maps.importLibrary(
       'marker'
@@ -93,6 +112,15 @@ export class MapPage implements OnInit {
     const { InfoWindow } = (await google.maps.importLibrary(
       'maps'
     )) as google.maps.MapsLibrary;
+
+
+    const myPositionImg = document.createElement('img');
+    myPositionImg.src = 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    const myPositionmarker = new AdvancedMarkerElement({
+      position: this._initPosition,
+      map: this.map,
+      content: myPositionImg,
+    })
 
     for (let location of this._locations) {
       let iconContent: HTMLElement;
@@ -117,7 +145,8 @@ export class MapPage implements OnInit {
           content: glyphSvgPinElement.element,
           gmpClickable: true,
         });
-
+        let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
+        console.log(indicationLink);
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
@@ -131,13 +160,13 @@ export class MapPage implements OnInit {
           location.incipit +
           '</h3></ion-row></ion-row></ion-col><ion-row><ion-col><h3>CATEGORIA: ' +
           location.category +
-          '</h3></ion-row></ion-col><ion-row><ion-col><h4>Articolo correlato:<a href="' +
+          '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
           location.uuid +
-          '">' +
+          '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
-          '</a></h4></ion-row></ion-col><ion-row></ion-grid>';
+          '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString,
@@ -170,6 +199,8 @@ export class MapPage implements OnInit {
           gmpClickable: true,
         });
 
+        let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
+        console.log(indicationLink);
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
@@ -183,13 +214,14 @@ export class MapPage implements OnInit {
           location.incipit +
           '</h3></ion-row></ion-row></ion-col><ion-row><ion-col><h3>CATEGORIA: ' +
           location.category +
-          '</h3></ion-row></ion-col><ion-row><ion-col><h4>Articolo correlato:<a href="' +
+          '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
           location.uuid +
-          '">' +
+          '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
-          '</a></h4></ion-row></ion-col><ion-row></ion-grid>';
+          '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
+
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString,
@@ -222,6 +254,8 @@ export class MapPage implements OnInit {
           gmpClickable: true,
         });
 
+        let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
+        console.log(indicationLink);
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
@@ -235,13 +269,14 @@ export class MapPage implements OnInit {
           location.incipit +
           '</h3></ion-row></ion-row></ion-col><ion-row><ion-col><h3>CATEGORIA: ' +
           location.category +
-          '</h3></ion-row></ion-col><ion-row><ion-col><h4>Articolo correlato:<a href="' +
+          '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
           location.uuid +
-          '">' +
+          '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
-          '</a></h4></ion-row></ion-col><ion-row></ion-grid>';
+          '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
+
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString,

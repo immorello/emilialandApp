@@ -23,7 +23,7 @@ export class RecipiesPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.api.getArticlesByCategory('recipies').subscribe(
+    this.api.getArticlesByCategory('ricette-reggiane').subscribe(
       (artcles:Article[])=>{
         this.loadedArticles = artcles;
       }

@@ -37,14 +37,15 @@ export class SingleRecipiePage implements OnInit {
   ionViewWillEnter() {
     this.ingredientsArr = [];
     this.api.getSingleArticle(this.uuid).subscribe((article: Article) => {
+      console.log(article);
       let extraContentsArr = article.extraContents;
       if(extraContentsArr != null){
         for (let i = 0; i<extraContentsArr.length;i++){
+          console.log(i);
           let singleObj = JSON.parse(extraContentsArr[i]);
           let singleIngredient = new Ingredient(singleObj.ingrediente, singleObj.quantita, singleObj.unita)
           this.ingredientsArr?.push(singleIngredient)
         }
-
         
       }
 
