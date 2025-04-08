@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'recipies',
+    path: 'ricette-reggiane',
     loadChildren: () => import('./recipies/recipies.module').then( m => m.RecipiesPageModule)
   },
   {
@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'storie-reggiane',
     loadChildren: () => import('./storie-reggiane/storie-reggiane.module').then( m => m.StorieReggianePageModule)
-  },  {
+  },
+  {
     path: 'map',
     loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   },

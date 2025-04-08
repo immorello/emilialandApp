@@ -12,9 +12,10 @@
         <ion-item>
           <ion-select placeholder="Seleziona una categoria" (ionChange)="handleFilter($event)">
             <div slot="label">Filtra <ion-text color="danger"></ion-text></div>
+            <ion-select-option value="all">Tutti</ion-select-option>
             <ion-select-option value="punto_amico">Punti Amici</ion-select-option>
             <ion-select-option value="punto_interesse">Punti Interesse</ion-select-option>
-            <ion-select-option value="storie-reggiane">Punti Storia</ion-select-option>
+            <ion-select-option value="punto_esperienza">Punti Esperienza</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>

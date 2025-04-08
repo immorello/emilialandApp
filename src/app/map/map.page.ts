@@ -4,6 +4,8 @@ import { Title } from '@angular/platform-browser';
 import { MapAdvancedMarker } from '@angular/google-maps';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
+import { ApiGatewayService } from '../api-gateway.service';
+import { Marker } from '../marker.model';
 
 @Component({
   selector: 'app-map',
@@ -13,64 +15,61 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class MapPage implements OnInit {
   @ViewChild('map', { static: true }) mapDiv!: ElementRef<HTMLDivElement>;
-  private _locations: any[] = [
-    {
-      lat: 44.695476,
-      lng: 10.621845,
-      title: 'Prova 1',
-      category: 'punto_amico',
-      article_category: 'recipies',
-      incipit: 'Lorem ipsum studiorum stocazzo',
-      uuid: 'b9be0f45-8f1c-472d-a7a6-956cc58b875d',
-      imageUrl:
-        'https://scoprire-images-bucket-emi.s3.eu-central-1.amazonaws.com/Foto 1.jpg',
-    },
-    {
-      lat: 44.69132,
-      lng: 10.630939,
-      title: 'Prova 1',
-      category: 'punto_interesse',
-      article_category: 'reggiani-illustri',
-      incipit: 'Lorem ipsum studiorum stocazzo',
-      uuid: '0A21A50D2C-190F-A2C6-7F02-14F08AF8AAD3',
-      imageUrl:
-        'https://scoprire-images-bucket-emi.s3.eu-central-1.amazonaws.com/Foto 2.jpg',
-    },
-    {
-      lat: 44.705172,
-      lng: 10.629351,
-      title: 'Prova 1',
-      category: 'punto_VR',
-      article_category: 'storie-reggiane',
-      incipit: 'Lorem ipsum studiorum stocazzo',
-      uuid: '815d33dc-97b2-462a-90d8-dbf5f2716cd2',
-      imageUrl:
-        'https://scoprire-images-bucket-emi.s3.eu-central-1.amazonaws.com/Foto 3.jpg',
-    },
-  ];
+  private _locations: Marker[] = [];
   private _initPosition = { lat: 44.679045, lng: 10.613033 };
   private _mapLoaded: boolean;
   private _markersArray: any [];
   map: any;
+  private _categorySelected: string;
+  private currentOpenInfoWindow: google.maps.InfoWindow | null = null;
 
-  constructor(private frontend: FrontendService) {
+  constructor(private frontend: FrontendService, private apiGw: ApiGatewayService) {
+    this.apiGw.getAllMarkers().subscribe(
+      (data)=>{
+        
+       this._locations = data;
+       this.addMarkers();
+      }
+    );
     this._mapLoaded = true;
-    this._markersArray = []
+    this._markersArray = [];
+    this._categorySelected = 'all';
   }
+
   get mapLoaded(): boolean {
     return this._mapLoaded;
   }
-
   get locations(): any[] {
     return this._locations;
   }
-
+  
   async ngOnInit(): Promise<void> {
     this.initMap();
+    this.addTouchHandlers();
+  }
+
+  private addTouchHandlers(){
+    const mapElement = this.mapDiv.nativeElement;
+    mapElement.addEventListener('touchstart', (e: TouchEvent) => {
+      // Controlla se il click è sull'InfoWindow o suoi elementi
+      const target = e.target as HTMLElement;
+      if (target.closest('.gm-ui-hover-effect') || target.closest('.gm-style-iw')) {
+        return; // Permetti l'evento di default per l'InfoWindow
+      }
+      
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    mapElement.addEventListener('touchmove', (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   }
 
   async initMap(): Promise<void> {
-    console.log('partito');
     this.locateUser();
     const { Map } = (await google.maps.importLibrary(
       'maps'
@@ -81,11 +80,36 @@ export class MapPage implements OnInit {
       center: this._initPosition,
       zoom: 12,
       mapId: 'dbd064246cd6634d',
+      gestureHandling: 'greedy',
+      scrollwheel: true,
+      disableDoubleClickZoom: false,
     });
-
-    this.addMarkers();
     
+    this.map.addListener('idle', () => {
+      this.updateVisibleMarkers();
+    });
   }
+  
+  private updateVisibleMarkers() {
+    const bounds = this.map.getBounds();
+    
+    for (let marker of this._markersArray) {
+      const position = marker.position;
+      
+      if (bounds.contains(position)) {
+        // Il marker è dentro i bounds della mappa
+        marker.setMap(this.map);
+      } else {
+        // Il marker è fuori dai bounds della mappa
+        marker.setMap(null);
+        
+      }
+    }
+    if (this._categorySelected != 'all'){
+      this.handleFilter(this._categorySelected);
+    }
+  }
+  
   private locateUser(){
     if(!Capacitor.isPluginAvailable('Geolocation')){
       console.log("GEO NOT READY");
@@ -103,6 +127,7 @@ export class MapPage implements OnInit {
     
   }
   async addMarkers() {
+    
     const { AdvancedMarkerElement } = (await google.maps.importLibrary(
       'marker'
     )) as google.maps.MarkerLibrary;
@@ -146,13 +171,13 @@ export class MapPage implements OnInit {
           gmpClickable: true,
         });
         let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
-        console.log(indicationLink);
+        //console.log(indicationLink);
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
           '<ion-col>' +
           '<ion-avatar><img alt="Silhouette of mountains" src="' +
-          location.imageUrl +
+          location.image_url +
           '" /></ion-avatar>' +
           '</ion-col><ion-col><h2>' +
           location.title +
@@ -163,7 +188,7 @@ export class MapPage implements OnInit {
           '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
-          location.uuid +
+          location.article_uuid +
           '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
           '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
@@ -173,9 +198,13 @@ export class MapPage implements OnInit {
         });
 
         marker.addListener('gmp-click', () => {
+          if (this.currentOpenInfoWindow) {
+            this.currentOpenInfoWindow.close();
+          }
           infowindow.open({
             anchor: marker,
           });
+          this.currentOpenInfoWindow = infowindow;
         });
         this._markersArray.push(marker);
       } else if (location.category == 'punto_interesse') {
@@ -200,13 +229,13 @@ export class MapPage implements OnInit {
         });
 
         let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
-        console.log(indicationLink);
+        //console.log(indicationLink);
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
           '<ion-col>' +
           '<ion-avatar><img alt="Silhouette of mountains" src="' +
-          location.imageUrl +
+          location.image_url +
           '" /></ion-avatar>' +
           '</ion-col><ion-col><h2>' +
           location.title +
@@ -217,7 +246,7 @@ export class MapPage implements OnInit {
           '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
-          location.uuid +
+          location.article_uuid +
           '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
           '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
@@ -228,12 +257,17 @@ export class MapPage implements OnInit {
         });
 
         marker.addListener('gmp-click', () => {
+          if (this.currentOpenInfoWindow) {
+            this.currentOpenInfoWindow.close();
+          }
           infowindow.open({
             anchor: marker,
           });
+          this.currentOpenInfoWindow = infowindow;
         });
         this._markersArray.push(marker);
-      } else if (location.category == 'punto_VR') {
+      } else if (location.category == 'punto_esperienza') {
+        //console.log("ESP=",location);
         const friendIcon = document.createElement('ion-icon');
         friendIcon.setAttribute('name', 'eye-outline');
         friendIcon.style.fontSize = '32px';
@@ -255,13 +289,13 @@ export class MapPage implements OnInit {
         });
 
         let indicationLink = "https://www.google.com/maps/dir/?api=1&origin="+this._initPosition.lat+","+this._initPosition.lng+"&destination="+location.lat+","+location.lng+"&travelmode=driving"
-        console.log(indicationLink);
+        
         const contentString =
           '<ion-grid>' +
           '<ion-row class="ion-align-items-center">' +
           '<ion-col>' +
           '<ion-avatar><img alt="Silhouette of mountains" src="' +
-          location.imageUrl +
+          location.image_url +
           '" /></ion-avatar>' +
           '</ion-col><ion-col><h2>' +
           location.title +
@@ -272,7 +306,7 @@ export class MapPage implements OnInit {
           '</h3></ion-row></ion-col><ion-row><ion-col><ion-button color="primary" style="width:20vw;"><a href="' +
           location.article_category +
           '/' +
-          location.uuid +
+          location.article_uuid +
           '"><h4 style="color:white;font-size:3vw;">' +
           location.title +
           '</h4></a></ion-button><ion-col><ion-button  style="width:20vw;"><a href='+indicationLink+'><h4 style="color:white;font-size:2vw;">Indicazioni stradali</h4></a></ion-button></ion-col></ion-row></ion-col><ion-row></ion-grid>';
@@ -283,9 +317,13 @@ export class MapPage implements OnInit {
         });
 
         marker.addListener('gmp-click', () => {
+          if (this.currentOpenInfoWindow) {
+            this.currentOpenInfoWindow.close();
+          }
           infowindow.open({
             anchor: marker,
           });
+          this.currentOpenInfoWindow = infowindow;
         });
         this._markersArray.push(marker);
         
@@ -293,7 +331,7 @@ export class MapPage implements OnInit {
       
     }
 
-    
+    this.updateVisibleMarkers();
   }
 
   onScroll(event: CustomEvent) {
@@ -301,39 +339,46 @@ export class MapPage implements OnInit {
     return;
   }
 
-  handleFilter(event: CustomEvent) {
-    let category = event.detail.value;
-    console.log('EVENT=', category);
-    
-    for (let marker of this._markersArray){
+  handleFilter(event: CustomEvent | string) {
+    let category = "";
+    if (event instanceof CustomEvent){
+      category = event.detail.value;
+    }else{
+      category = this._categorySelected;
+    }
+    if (this.currentOpenInfoWindow) {
+      this.currentOpenInfoWindow.close();
+      this.currentOpenInfoWindow = null;
+    }
+
+    const bounds = this.map.getBounds();
+  
+    for (let marker of this._markersArray) {
       let marker_content = marker.content as HTMLElement;
       let icon = marker_content.querySelector('ion-icon')?.name;
+      const position = marker.position;
+      const isInBounds = bounds.contains(position);
+  
       switch (category) {
+        case 'all':
+          this._categorySelected = 'all';
+          marker.setMap(isInBounds ? this.map : null);
+          break;
         case 'punto_amico':
-          if (icon != 'heart-outline'){
-            marker.setMap(null);
-          }else{
-            marker.setMap(this.map)
-          }
+          this._categorySelected = 'punto_amico';
+          marker.setMap((icon === 'heart-outline' && isInBounds) ? this.map : null);
           break;
         case 'punto_interesse':
-          if (icon != 'star-outline'){
-            marker.setMap(null);
-          }else{
-            marker.setMap(this.map)
-          }
+          this._categorySelected = 'punto_interesse';
+          marker.setMap((icon === 'star-outline' && isInBounds) ? this.map : null);
           break;
-        case 'storie-reggiane':
-          if (icon != 'eye-outline'){
-            marker.setMap(null);
-          }else{
-            marker.setMap(this.map)
-          }
+        case 'punto_esperienza':
+          this._categorySelected = 'punto_esperienza';
+          marker.setMap((icon === 'eye-outline' && isInBounds) ? this.map : null);
           break;
         default:
-          continue
+          continue;
       }
     }
-    
   }
 }

@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { last, map, Observable, single, take } from 'rxjs';
 import { ArticleData } from './articleData';
 import { UrlSegment } from '@angular/router';
+import { MarkerData } from './markerData';
+import { Marker } from './marker.model';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +47,42 @@ export class ApiGatewayService {
         }
 
         return fetchedArticles.sort((a, b) => a.homeOrder - b.homeOrder);
+      })
+    );
+  }
+
+  public getAllMarkers() {
+    const url =
+      'https://dwgsfo9djl.execute-api.eu-central-1.amazonaws.com/dev/get-all-markers';
+
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.apiKey,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get<MarkerData>(url, { headers }).pipe(
+      map((data) => {
+        
+        let fetchedMarkers: Marker[] = [];
+        let dataLen = data['Count'];
+
+        for (let i = 0; i < dataLen; i++) {
+          let singleItem = data['Items'][i];
+          let singleMarker = new Marker(
+            singleItem.marker_uuid.S,
+            parseFloat(singleItem.lng.N),
+            singleItem.article_uuid.S,
+            singleItem.incipit.S,
+            singleItem.category.S,
+            singleItem.article_category.S,
+            singleItem.image_url.S,
+            parseFloat(singleItem.lat.N),
+            singleItem.title.S
+          );
+          fetchedMarkers.push(singleMarker);
+        }
+
+        return fetchedMarkers;
       })
     );
   }
