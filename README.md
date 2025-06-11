@@ -44,8 +44,8 @@ The app connects to an AWS serverless backend (see scoprireBackend).
 Make sure to properly configure API endpoints in the Angular service lay
 
 ## Screenshots
-![Home screen](./assets/screenshots/homepage.png)
-![Recipe page](./assets/screenshots/recipies.png)
-![Map page](./assets/screenshots/recipies.png)
+![Home screen](./src/assets/screenshots/homepage.png)
+![Recipe page](./src/assets/screenshots/recipies.png)
+![Map page](./src/assets/screenshots/recipies.png)
 
 
