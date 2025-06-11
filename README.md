@@ -46,6 +46,6 @@ Make sure to properly configure API endpoints in the Angular service lay
 ## Screenshots
 ![Home screen](./src/assets/screenshots/homepage.png)
 ![Recipe page](./src/assets/screenshots/recipies.png)
-![Map page](./src/assets/screenshots/recipies.png)
+![Map page](./src/assets/screenshots/map.png)
 
 
